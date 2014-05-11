@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProbModelXML formatVersion="0.2.0">
+  <ProbNet type="BayesianNetwork">
+    <Comment><![CDATA[<<Double click to add/modify comment>>]]></Comment>
+    <Variables>
+      <Variable name="Asia" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="232" y="135" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Smoking" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="576" y="122" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Tuberculosis" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="227" y="265" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Lung Cancer" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="583" y="246" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Bronchitis" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="820" y="218" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Dyspnoea" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="761" y="406" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Tub or Lung Cancer" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="455" y="375" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+      <Variable name="Positive Xray" type="finiteStates" role="chance" isInput="false">
+        <Coordinates x="145" y="450" />
+        <Precision>0.01</Precision>
+        <States>
+          <State name="no" />
+          <State name="yes" />
+        </States>
+      </Variable>
+    </Variables>
+    <Links>
+      <Link directed="true">
+        <Variable name="Asia" />
+        <Variable name="Tuberculosis" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Smoking" />
+        <Variable name="Lung Cancer" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Smoking" />
+        <Variable name="Bronchitis" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Tuberculosis" />
+        <Variable name="Tub or Lung Cancer" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Lung Cancer" />
+        <Variable name="Tub or Lung Cancer" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Bronchitis" />
+        <Variable name="Dyspnoea" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Tub or Lung Cancer" />
+        <Variable name="Dyspnoea" />
+      </Link>
+      <Link directed="true">
+        <Variable name="Tub or Lung Cancer" />
+        <Variable name="Positive Xray" />
+      </Link>
+    </Links>
+    <Potentials>
+      <Potential type="Table" role="conditionalProbability">
+        <Variables>
+          <Variable name="Asia" />
+        </Variables>
+        <Values>0.99 0.01</Values>
+      </Potential>
+      <Potential type="Table" role="conditionalProbability">
+        <Variables>
+          <Variable name="Smoking" />
+        </Variables>
+        <Values>0.5 0.5</Values>
+      </Potential>
+      <Potential type="ICIModel" role="conditionalProbability">
+        <Model>OR / MAX</Model>
+        <Variables>
+          <Variable name="Tuberculosis" />
+          <Variable name="Asia" />
+        </Variables>
+        <Subpotentials>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Tuberculosis" />
+              <Variable name="Asia" />
+            </Variables>
+            <Values>0.99 0.01 0.95 0.05</Values>
+          </Potential>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Tuberculosis" />
+            </Variables>
+            <Values>1.0 0.0</Values>
+          </Potential>
+        </Subpotentials>
+      </Potential>
+      <Potential type="ICIModel" role="conditionalProbability">
+        <Model>OR / MAX</Model>
+        <Variables>
+          <Variable name="Lung Cancer" />
+          <Variable name="Smoking" />
+        </Variables>
+        <Subpotentials>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Lung Cancer" />
+              <Variable name="Smoking" />
+            </Variables>
+            <Values>0.99 0.01 0.9 0.1</Values>
+          </Potential>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Lung Cancer" />
+            </Variables>
+            <Values>1.0 0.0</Values>
+          </Potential>
+        </Subpotentials>
+      </Potential>
+      <Potential type="ICIModel" role="conditionalProbability">
+        <Model>OR / MAX</Model>
+        <Variables>
+          <Variable name="Bronchitis" />
+          <Variable name="Smoking" />
+        </Variables>
+        <Subpotentials>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Bronchitis" />
+              <Variable name="Smoking" />
+            </Variables>
+            <Values>0.7 0.3 0.4 0.6</Values>
+          </Potential>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Bronchitis" />
+            </Variables>
+            <Values>1.0 0.0</Values>
+          </Potential>
+        </Subpotentials>
+      </Potential>
+      <Potential type="Table" role="conditionalProbability">
+        <Variables>
+          <Variable name="Dyspnoea" />
+          <Variable name="Bronchitis" />
+          <Variable name="Tub or Lung Cancer" />
+        </Variables>
+        <Values>0.9 0.1 0.2 0.8 0.3 0.7 0.1 0.9</Values>
+      </Potential>
+      <Potential type="ICIModel" role="conditionalProbability">
+        <Model>OR / MAX</Model>
+        <Variables>
+          <Variable name="Tub or Lung Cancer" />
+          <Variable name="Tuberculosis" />
+          <Variable name="Lung Cancer" />
+        </Variables>
+        <Subpotentials>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Tub or Lung Cancer" />
+              <Variable name="Tuberculosis" />
+            </Variables>
+            <Values>1.0 0.0 0.0 1.0</Values>
+          </Potential>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Tub or Lung Cancer" />
+              <Variable name="Lung Cancer" />
+            </Variables>
+            <Values>1.0 0.0 0.0 1.0</Values>
+          </Potential>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Tub or Lung Cancer" />
+            </Variables>
+            <Values>1.0 0.0</Values>
+          </Potential>
+        </Subpotentials>
+      </Potential>
+      <Potential type="ICIModel" role="conditionalProbability">
+        <Model>OR / MAX</Model>
+        <Variables>
+          <Variable name="Positive Xray" />
+          <Variable name="Tub or Lung Cancer" />
+        </Variables>
+        <Subpotentials>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Positive Xray" />
+              <Variable name="Tub or Lung Cancer" />
+            </Variables>
+            <Values>0.95 0.05 0.02 0.98</Values>
+          </Potential>
+          <Potential type="Table">
+            <Variables>
+              <Variable name="Positive Xray" />
+            </Variables>
+            <Values>1.0 0.0</Values>
+          </Potential>
+        </Subpotentials>
+      </Potential>
+    </Potentials>
+    <AdditionalProperties />
+  </ProbNet>
+  <Evidence>
+    <EvidenceCase />
+    <EvidenceCase>
+      <EvidenceCase variable="Smoking" state="yes" />
+      <EvidenceCase variable="Positive Xray" state="yes" />
+      <EvidenceCase variable="Dyspnoea" state="no" />
+      <EvidenceCase variable="Asia" state="no" />
+    </EvidenceCase>
+  </Evidence>
+</ProbModelXML>
